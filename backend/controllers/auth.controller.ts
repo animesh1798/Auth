@@ -2,9 +2,12 @@ import {Request, Response} from 'express'
 import bcrypt from 'bcrypt'
 import { RegUserProp, User, CredentialsProp } from "../types/types";
 import { generateToken } from '../utils/jwt.service';
+import data from '../data/db.ts'
+
+const db = structuredClone(data);
 
 
-export const register = async (req: Request, res: Response, db: User[]) => {
+export const register = async (req: Request, res: Response) => {
   const regUser: RegUserProp = req.body;
   
     if (db.find((user) => user.email === regUser.email)) {
@@ -26,7 +29,7 @@ export const register = async (req: Request, res: Response, db: User[]) => {
 };
 
 
-export const login = async (req: Request, res: Response, db: User[]) => {
+export const login = async (req: Request, res: Response) => {
   const credentials: CredentialsProp = req.body;
 
   let found = db.find((user) => user.email === credentials.email);
