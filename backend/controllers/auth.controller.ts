@@ -6,7 +6,7 @@ import data from '../data/db'
 
 const db = structuredClone(data);
 
-
+/// REGISTRATION
 export const register = async (req: Request, res: Response) => {
   const regUser: RegUserProp = req.body;
   
@@ -28,7 +28,7 @@ export const register = async (req: Request, res: Response) => {
     return res.status(201).json({ message: "Successfully added User", token });
 };
 
-
+/// LOGIN
 export const login = async (req: Request, res: Response) => {
   const credentials: CredentialsProp = req.body;
 
