@@ -2,7 +2,7 @@ import {Request, Response} from 'express'
 import bcrypt from 'bcrypt'
 import { RegUserProp, User, CredentialsProp } from "../types/types";
 import { generateToken } from '../utils/jwt.service';
-import data from '../data/db.ts'
+import data from '../data/db'
 
 const db = structuredClone(data);
 

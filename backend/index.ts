@@ -1,13 +1,13 @@
-import dotenv from "dotenv";
+
 import express, { Express } from "express";
 import cors from "cors";
 
-import {login, register} from './controllers/auth.controller.ts'
-import { registerValidation } from "./middleware/registerValidation.ts";
+import {login, register} from './controllers/auth.controller'
+import { registerValidation } from "./middleware/registerValidation";
 import { loginValidation } from "./middleware/loginValidation";
 
 
-dotenv.config();
+
 const app: Express = express();
 
 app.use(cors());
