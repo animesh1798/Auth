@@ -1,17 +1,12 @@
-import express, { Express } from "express";
+import express from "express";
 import cors from "cors";
-import {login, register} from './controllers/auth.controller'
-import { registerValidation } from "./middleware/registerValidation";
-import { loginValidation } from "./middleware/loginValidation";
+import authRoutes from "./routes/auth.routes";
 
-
-const app: Express = express();
+const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+app.use("/auth", authRoutes);
 
-app.post("/register", registerValidation, register);
-app.post("/login", loginValidation, login);
-
-export default app
+export default app;
