@@ -1,21 +1,12 @@
 import React from "react";
 import { useNavigate, Link } from 'react-router-dom'
 
-interface RegBodyProp {
-  jwt: string;
-  message: string;
-}
-
 const RegisterPage = () => {
   const [name, setName] = React.useState<string>("");
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const [regResponse, setRegResponse] = React.useState<string>("")
   const navigate = useNavigate()
-
-  const handleRegData = (data: RegBodyProp) => {
-    console.log(data)
-  };
 
   const handleRegistration = () => {
     fetch("http://localhost:3000/register", {

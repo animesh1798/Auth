@@ -1,19 +1,24 @@
 import React from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+interface LoginResponseProp {
+  message: string;
+  jwt: string;
+}
 
 const LoginPage = () => {
 
-  const navigate = useNavigate()
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
 
-
-  const handleLoginResponse = (data: String) => {
+  const handleLoginResponse = (data: LoginResponseProp) => {
+    alert(data.message)
     console.log(data)
-  } 
+    setEmail(""); setPassword("");
+
+  };
 
   const handleLogin = () => {
-
     fetch("http://localhost:3000/login", {
       method: "POST",
       headers: {
@@ -21,12 +26,9 @@ const LoginPage = () => {
       },
       body: JSON.stringify({ email, password }),
     })
-      .then((res) => res.ok? alert("Login Success") : res.json().then((data) => alert(data.message)))
-      
-  };
-
-  const handleRegister = () => {
-    navigate('/register')
+      .then((res) => res.json())
+      .then(handleLoginResponse)
+      .catch((data) => alert(data.message));
   };
 
   return (
@@ -58,5 +60,4 @@ const LoginPage = () => {
   );
 };
 
-
-export default LoginPage
+export default LoginPage;

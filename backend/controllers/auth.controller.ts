@@ -1,7 +1,7 @@
 import {Request, Response} from 'express'
 import bcrypt from 'bcrypt'
-import { RegUserProp, User, CredentialsProp } from "../types/types";
-import { generateToken, validateToken } from '../utils/jwt.service';
+import { RegUserProp, User, CredentialsProp, TokenPayload } from "../types/types";
+import { generateAccessToken, generateRefreshToken, validateAccessToken, validateRefreshToken } from '../utils/jwt.service';
 import data from '../data/db'
 
 const db = structuredClone(data);
@@ -36,10 +36,22 @@ export const login = async (req: Request, res: Response) => {
     found && (await bcrypt.compare(credentials.password, found.password));
 
   if (success) {
-    const token = generateToken({ id: String(found.id), email: found.email });
+    const accessToken = generateAccessToken({ id: String(found.id), email: found.email });
+    const refreshToken = generateRefreshToken({id: String(found.id), email:found.email }) 
+    
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: false,
+      sameSite: true
+    })
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: false,
+      sameSite: true
+    })
+    
     return res.status(200).json({
       message: "Login Success",
-      token,
     });
   } else {
     return res.status(401).json({ message: "Invalid email or password" });
@@ -48,9 +60,21 @@ export const login = async (req: Request, res: Response) => {
 
 
 export const getUser = (req: Request, res: Response) => {
-  const userToken = req.headers.authorization?.split(" ")[1]
-  const validToken = validateToken(userToken??"")
-  if (!userToken || !validToken) return res.status(409).json({message : "Session expired. Login again."})
-
-  console.log(validToken)
+  let {accessToken, refreshToken} = req.cookies
+  const validAccessToken = validateAccessToken(accessToken??"")
+  const validRefreshToken = validateRefreshToken(refreshToken??"")
+  
+  if (!validAccessToken && !validRefreshToken) return res.status(401).json({message : "Session expired. Login again."})
+  if (!validAccessToken && validRefreshToken){
+    const {id, email} = validRefreshToken
+    accessToken = generateAccessToken({id, email})
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: false,
+      sameSite: true,
+    });
+  }
+  return res.status(200).json({
+    message: "Login Success",
+  });
 }
