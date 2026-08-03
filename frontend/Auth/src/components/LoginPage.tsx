@@ -21,8 +21,8 @@ const LoginPage = () => {
       },
       body: JSON.stringify({ email, password }),
     })
-      .then((res) => res.json())
-      .then((data) => handleLoginResponse(data));
+      .then((res) => res.ok? alert("Login Success") : res.json().then((data) => alert(data.message)))
+      
   };
 
   const handleRegister = () => {

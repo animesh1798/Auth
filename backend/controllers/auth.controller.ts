@@ -23,9 +23,7 @@ export const register = async (req: Request, res: Response) => {
     };
     db.push(newUser);
   
-    const token = generateToken({ id: String(newUser.id), email: newUser.email });
-  
-    return res.status(201).json({ message: "Successfully added User", token });
+    return res.status(201).json({ message: "Successfully added User"});
 };
 
 /// LOGIN
