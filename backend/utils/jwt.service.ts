@@ -1,10 +1,20 @@
-import jwt from 'jsonwebtoken'
-import { JwtPayload } from '../types/types';
+import jwt, { JwtPayload } from 'jsonwebtoken'
+import { TokenPayload } from '../types/types';
 
 
-export const generateToken = (loginUser: JwtPayload) => {
+export const generateToken = (loginUser: TokenPayload) => {
   return jwt.sign(loginUser, process.env.JWT_SECRET!, {
     algorithm: "HS256",
     expiresIn: "15m",
   });
 };
+
+
+export const validateToken = (jwtToken: string) => {
+  try {
+    const decoded = jwt.verify(jwtToken, process.env.JWT_SECRET!)
+    console.log(decoded)
+  } catch {
+    return false
+  }
+}

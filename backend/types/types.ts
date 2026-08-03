@@ -7,7 +7,7 @@ export interface RegUserProp extends CredentialsProp {
   name: string;
 }
 
-export interface JwtPayload {
+export interface TokenPayload {
   id: string;
   email: string;
 }
