@@ -13,7 +13,7 @@ export const generateToken = (loginUser: TokenPayload) => {
 export const validateToken = (jwtToken: string) => {
   try {
     const decoded = jwt.verify(jwtToken, process.env.JWT_SECRET!)
-    console.log(decoded)
+    return decoded
   } catch {
     return false
   }

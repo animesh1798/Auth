@@ -1,7 +1,7 @@
 import {Request, Response} from 'express'
 import bcrypt from 'bcrypt'
 import { RegUserProp, User, CredentialsProp } from "../types/types";
-import { generateToken } from '../utils/jwt.service';
+import { generateToken, validateToken } from '../utils/jwt.service';
 import data from '../data/db'
 
 const db = structuredClone(data);
@@ -48,3 +48,11 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
+
+export const getUser = (req: Request, res: Response) => {
+  const userToken = req.headers.authorization?.split(" ")[1]
+  const validToken = validateToken(userToken??"")
+  if (!userToken || !validToken) return res.status(409).json({message : "Session expired. Login again."})
+
+  console.log(validToken)
+}
