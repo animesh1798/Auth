@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 interface RegBodyProp {
   jwt: string;
@@ -32,7 +32,7 @@ const RegisterPage = () => {
 
   return (
     <>
-      <div className="registration-page-card">
+      <div className="registration-card">
         <input
           type="text"
           className="name"
@@ -57,7 +57,8 @@ const RegisterPage = () => {
         <button className="register" onClick={handleRegistration}>
           Register
         </button> <br />
-        <span className="reg-response">{regResponse}</span>
+        <span className="reg-response" style={{color: "red"}}>{regResponse}</span><br />
+        <Link to="/">Back to Login</Link>
       </div>
     </>
   );

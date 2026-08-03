@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const LoginPage = () => {
 
@@ -51,9 +51,8 @@ const LoginPage = () => {
         <button className="login" onClick={handleLogin}>
           Login
         </button>
-        <button className="register" onClick={handleRegister}>
-          Register
-        </button>
+        New user?
+        <Link to="/register"> Register</Link>
       </div>
     </>
   );

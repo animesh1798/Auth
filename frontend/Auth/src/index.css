@@ -1,0 +1,42 @@
+#root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-card,
+.registration-card {
+    border: 1px solid black;
+    padding: 2rem;
+    border-radius: 0.5rem; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+input {
+  width: 250px;
+}
+
+.name,
+.email,
+.password {
+    padding: 0.5rem;
+    margin: 3px;
+    border-radius: 0.5rem;
+    border: 0px;
+    background-color: #eaeaea;
+    box-shadow: 0.5rem;
+}
+
+button {
+    position: relative;
+    display: block;
+    margin: 10px auto;
+    border: 0;
+    padding: 5px;
+    background-color: rgb(16, 140, 217);
+    color: white;
+    font-size: 100%;
+    font-weight: bold;
+    border-radius: 5px;
+}
