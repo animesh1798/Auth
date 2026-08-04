@@ -7,6 +7,15 @@ const handleGetDetailsButton = () => {
     .then(data => console.log(data))
 }
 
+const handleLogout = () => {
+    fetch("http://localhost3000/user/logout", {
+        method: "GET",
+        credentials: "include"
+    })
+    .then(res => res.json())
+    .then(console.log)
+}
+
 const LandingPage = () => {
     return (
         <>
@@ -14,6 +23,11 @@ const LandingPage = () => {
                 className="get-details"
                 onClick = {handleGetDetailsButton}
                 >Get Details</button>
+            
+            <button 
+                className="logout"
+                onClick={handleLogout}
+                >Logout</button>
         </>
     )
 }
