@@ -6,6 +6,12 @@ import data from '../data/db'
 
 const db = structuredClone(data);
 
+const cookieOptions = {
+  httpOnly: true,
+  secure: false,
+  sameSite: true,
+};
+
 /// REGISTRATION
 export const register = async (req: Request, res: Response) => {
   const regUser: RegUserProp = req.body;
@@ -39,16 +45,8 @@ export const login = async (req: Request, res: Response) => {
     const accessToken = generateAccessToken({ id: String(found.id), email: found.email });
     const refreshToken = generateRefreshToken({id: String(found.id), email:found.email }) 
     
-    res.cookie("accessToken", accessToken, {
-      httpOnly: true,
-      secure: false,
-      sameSite: true
-    })
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      secure: false,
-      sameSite: true
-    })
+    res.cookie("accessToken", accessToken, cookieOptions)
+    res.cookie("refreshToken", refreshToken, cookieOptions)
     
     return res.status(200).json({
       message: "Login Success",
@@ -59,7 +57,7 @@ export const login = async (req: Request, res: Response) => {
 };
 
 
-export const getUser = (req: Request, res: Response) => {
+export const getUser = (req: Request, res: Response) : TokenPayload | null => {
   let {accessToken, refreshToken} = req.cookies
   const validAccessToken = validateAccessToken(accessToken??"")
   const validRefreshToken = validateRefreshToken(refreshToken??"")
@@ -74,7 +72,13 @@ export const getUser = (req: Request, res: Response) => {
       sameSite: true,
     });
   }
-  return res.status(200).json({
-    message: "Login Success",
-  });
+  return validAccessToken
+}
+
+export const logout = (res: Response) => {
+  res.clearCookie("accessToken", cookieOptions)
+  res.clearCookie("refreshToken", cookieOptions)
+
+  res.status(200).json({message: "Logged Out"})
+
 }
