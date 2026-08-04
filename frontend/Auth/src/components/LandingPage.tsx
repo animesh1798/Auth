@@ -1,4 +1,12 @@
-const handleGetDetailsButton = () => {
+import { useNavigate } from "react-router-dom"
+
+
+
+const LandingPage = () => {
+
+    const navigate = useNavigate()
+
+    const handleGetDetailsButton = () => {
     fetch("http://localhost:3000/user", {
         method: "GET",
         credentials: "include"
@@ -7,16 +15,27 @@ const handleGetDetailsButton = () => {
     .then(data => console.log(data))
 }
 
-const handleLogout = () => {
-    fetch("http://localhost3000/user/logout", {
-        method: "GET",
-        credentials: "include"
-    })
-    .then(res => res.json())
-    .then(console.log)
-}
+    const handleLogout = async () => {
+        
+        try{
+        const resp = await fetch("http://localhost:3000/user/logout", {
+            method: "GET",
+            credentials: "include"
+        })
 
-const LandingPage = () => {
+        if (!resp.ok)
+            throw new Error("Can't logout")
+        const data = await resp.json()
+        
+        navigate("/")
+        alert(data.message)
+
+        } catch (e){
+            console.log(e)
+        }
+        
+    }
+
     return (
         <>
             <button 

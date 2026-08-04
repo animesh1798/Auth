@@ -65,7 +65,7 @@ export const getUser = (req: Request, res: Response) => {
 }
 
 
-export const logout = (res: Response) => {
+export const logout = (_, res: Response) => {
   res.clearCookie("accessToken", cookieOptions)
   res.clearCookie("refreshToken", cookieOptions)
 
