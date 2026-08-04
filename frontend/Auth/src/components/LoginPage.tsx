@@ -21,6 +21,7 @@ const LoginPage = () => {
           "Content-type": "application/json",
         },
         body: JSON.stringify({ email, password }),
+        credentials: "include"
       })
 
       const data: LoginResponseProp = await response.json()
@@ -28,7 +29,7 @@ const LoginPage = () => {
         throw new Error(data.message)
 
 
-      
+
       alert("Login Success")
       navigate("/user")
 

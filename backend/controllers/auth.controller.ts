@@ -9,7 +9,7 @@ const db = structuredClone(data);
 const cookieOptions = {
   httpOnly: true,
   secure: false,
-  sameSite: "lax",
+  sameSite: true,
 };
 
 /// REGISTRATION
@@ -43,7 +43,7 @@ export const login = async (req: Request, res: Response) => {
 
   if (success) {
     const accessToken = generateAccessToken({ id: String(found.id), email: found.email });
-    const refreshToken = generateRefreshToken({id: String(found.id), email:found.email }) 
+    const refreshToken = generateRefreshToken({id: String(found.id), email:found.email });
     
     res.cookie("accessToken", accessToken, cookieOptions)
     res.cookie("refreshToken", refreshToken, cookieOptions)
