@@ -1,4 +1,4 @@
-import {Request, Response} from 'express'
+import {NextFunction, Request, Response} from 'express'
 import bcrypt from 'bcrypt'
 import { RegUserProp, User, CredentialsProp, TokenPayload } from "../types/types";
 import { generateAccessToken, generateRefreshToken, validateAccessToken, validateRefreshToken } from '../utils/jwt.service';
@@ -57,23 +57,13 @@ export const login = async (req: Request, res: Response) => {
 };
 
 
-export const getUser = (req: Request, res: Response) : TokenPayload | null => {
-  let {accessToken, refreshToken} = req.cookies
-  const validAccessToken = validateAccessToken(accessToken??"")
-  const validRefreshToken = validateRefreshToken(refreshToken??"")
-  
-  if (!validAccessToken && !validRefreshToken) return res.status(401).json({message : "Session expired. Login again."})
-  if (!validAccessToken && validRefreshToken){
-    const {id, email} = validRefreshToken
-    accessToken = generateAccessToken({id, email})
-    res.cookie("accessToken", accessToken, {
-      httpOnly: true,
-      secure: false,
-      sameSite: true,
-    });
-  }
-  return validAccessToken
+export const getUser = (req: Request, res: Response) => {
+  const {id, email} = req.body
+  return res.status(200).json({message: {
+    userDetails: id
+  }})
 }
+
 
 export const logout = (res: Response) => {
   res.clearCookie("accessToken", cookieOptions)

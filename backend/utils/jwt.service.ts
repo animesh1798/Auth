@@ -26,6 +26,7 @@ export const validateAccessToken = (jwtToken: string) : TokenPayload | null => {
     return null
   }
 }
+
 export const validateRefreshToken = (jwtToken: string) : TokenPayload | null => {
   try {
     const decoded = jwt.verify(jwtToken, process.env.REFRESH_TOKEN_SECRET!)
