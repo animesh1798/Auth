@@ -1,34 +1,44 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface LoginResponseProp {
   message: string;
-  jwt: string;
 }
 
 const LoginPage = () => {
 
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
+  const navigate = useNavigate()
 
-  const handleLoginResponse = (data: LoginResponseProp) => {
-    alert(data.message)
-    console.log(data)
-    setEmail(""); setPassword("");
+  const handleLogin = async () => {
 
-  };
+    try {
 
-  const handleLogin = () => {
-    fetch("http://localhost:3000/login", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then((res) => res.json())
-      .then(handleLoginResponse)
-      .catch((data) => alert(data.message));
+      const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      })
+
+      const data: LoginResponseProp = await response.json()
+      if (!response.ok)
+        throw new Error(data.message)
+
+
+      
+      alert("Login Success")
+      navigate("/user")
+
+    } catch (e) {
+
+      alert(e)
+      setEmail(""); setPassword("");
+    
+    }
+
   };
 
   return (

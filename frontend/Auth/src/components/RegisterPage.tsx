@@ -15,6 +15,7 @@ const RegisterPage = () => {
         "Content-type": "application/json",
       },
       body: JSON.stringify({ name, email, password }),
+      credentials: "include"
     })
       .then((res) => {
         res.ok ? navigate("/") : res.json().then(data => setRegResponse(data.message))

@@ -3,6 +3,7 @@ import { validateAccessToken, validateRefreshToken, generateAccessToken } from "
 
 export const tokenValidation = (req: Request, res: Response, next: NextFunction) => {
   let { accessToken, refreshToken } = req.cookies;
+  console.log(accessToken, refreshToken)
   const validAccessToken = validateAccessToken(accessToken ?? "");
 
   if (validAccessToken) {

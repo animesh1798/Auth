@@ -9,7 +9,7 @@ const db = structuredClone(data);
 const cookieOptions = {
   httpOnly: true,
   secure: false,
-  sameSite: true,
+  sameSite: "lax",
 };
 
 /// REGISTRATION
