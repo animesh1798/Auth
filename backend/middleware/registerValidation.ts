@@ -1,5 +1,5 @@
-import { RegUserProp } from "../types/types";
-import {Request, Response, NextFunction} from 'express'
+import type { RegUserProp } from "../types/types.js";
+import type {Request, Response, NextFunction} from 'express'
 
 export const registerValidation = (
   req: Request,

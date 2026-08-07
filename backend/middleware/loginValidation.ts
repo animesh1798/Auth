@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction} from 'express'
+import type { Request, Response, NextFunction} from 'express'
 
 export const loginValidation = (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
