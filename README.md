@@ -26,13 +26,19 @@ DATABASE_URL="your_database_connection_string"
 
 > **Important:** The application will not work correctly if `DATABASE_URL` is missing or points to an invalid database.
 
+## Prisma Schema
+<img width="624" height="293" alt="image" src="https://github.com/user-attachments/assets/cd346b69-af9c-482e-a0f3-47a74a75b498" />
+
+
 ## HOW UI LOOKS
 
 ### Login Page
-<img width="728" height="557" alt="image" src="https://github.com/user-attachments/assets/df6dabe4-4b2f-41af-911f-a9b5ecfb15a3" />
+<img width="351" height="214" alt="image" src="https://github.com/user-attachments/assets/acfdf263-de65-43e9-9213-903f672faea8" />
+
 
 ### Registration Page
-<img width="737" height="558" alt="image" src="https://github.com/user-attachments/assets/dcc6815b-3b30-41f3-91f2-a8cf1fe4251e" />
+<img width="424" height="320" alt="image" src="https://github.com/user-attachments/assets/9c6c0377-13fa-4b65-a1bb-816d08b1b60a" />
+
 
 ### After Login
 <img width="731" height="100" alt="image" src="https://github.com/user-attachments/assets/7c48e981-7f47-4737-a1ba-7494ad055e9a" />
