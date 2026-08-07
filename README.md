@@ -1,15 +1,15 @@
-#Auth
+# Auth
 
 A full-stack authentication system built with React, Express, and PostgreSQL. It handles user registration and login with bcrypt-hashed passwords, and uses short-lived JWT access tokens paired with longer-lived refresh tokens stored as sessions in the database — so a session can be silently renewed without forcing the user to log in again, and can be revoked server-side on logout.
 
-##Stack
+## Stack
 
 Frontend: React 19, TypeScript, Vite, React Router
 Backend: Express 5, TypeScript, Prisma ORM
 Database: PostgreSQL
 Auth: JWT (access + refresh tokens) in httpOnly cookies, bcrypt password hashing, session tracking in the database
 
-##Key features
+## Key features
 
 User registration and login with server-side validation
 Access/refresh token flow with automatic token refresh via middleware
